@@ -1,0 +1,47 @@
+#!/bin/bash
+set -e
+
+command_string="phpstan"
+
+if [ -n "$action_configuration" ]
+then
+	command_string="$command_string --configuration='$action_configuration'"
+fi
+
+if [ -n "$action_level" ]
+then
+	command_string="$command_string --level=$action_level"
+fi
+
+if [ -n "$action_paths_file" ]
+then
+	command_string="$command_string --paths-file='$action_paths_file'"
+fi
+
+if [ -n "$action_autoload_file" ]
+then
+	command_string="$command_string --autoload-file='$action_autoload_file'"
+fi
+
+if [ -n "$action_error_format" ]
+then
+	command_string="$command_string --error-format=$action_error_format"
+fi
+
+if [ -n "$action_generate_baseline" ]
+then
+	command_string="$command_string --generate-baseline=$action_generate_baseline"
+fi
+
+if [ -n "$action_memory_limit" ]
+then
+	command_string="$command_string --memory-limit=$action_memory_limit"
+fi
+
+if [ -n "$action_args" ]
+then
+	command_string="$command_string $action_args"
+fi
+
+echo "Command: $command_string"
+eval "$command_string"

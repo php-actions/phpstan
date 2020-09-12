@@ -1,0 +1,45 @@
+name: PHPStan (php-actions)
+description: PHP Static Analysis in Github Actions.
+
+inputs:
+  configuration:
+    description: Configuration file location
+    required: false
+  level:
+    description: Level of rule options - the higher the stricter
+    required: false
+  paths_file:
+    description: Path to a file with a list of paths to run analysis on
+    required: false
+  autoload_file:
+    description: Project's additional autoload file path
+    required: false
+  error_format:
+    description: Format in which to print the result of the analysis
+    required: false
+  generate_baseline:
+    description: Path to a file where the baseline should be saved
+    required: false
+  memory_limit:
+    description: Memory limit for analysis
+    required: false
+  args:
+    description: Extra arguments to pass to the phpstan binary
+    required: false
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    action_configuration: ${{ inputs.configuration }}
+    action_level: ${{ inputs.level }}
+    action_paths_file: ${{ inputs.paths_file }}
+    action_autoload_file: ${{ inputs.autoload_file }}
+    action_error_format: ${{ inputs.error_format }}
+    action_generate_baseline: ${{ inputs.generate_baseline }}
+    action_memory_limit: ${{ inputs.memory_limit }}
+    action_args: ${{ inputs.args }}
+
+branding:
+  icon: 'check-square'
+  color: 'purple'
