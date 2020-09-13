@@ -6,5 +6,6 @@ LABEL homepage="https://github.com/php-actions/phpstan"
 LABEL maintainer="Greg Bowler <greg.bowler@g105b.com>"
 
 RUN composer global require --no-progress phpstan/phpstan 0.12.*
+RUN ln -s vendor/bin/phpstan /usr/local/bin/phpstan
 COPY entrypoint /usr/local/bin/entrypoint
 ENTRYPOINT ["/usr/local/bin/entrypoint"]
