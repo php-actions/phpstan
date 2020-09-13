@@ -48,5 +48,10 @@ then
 	command_string="$command_string $action_args"
 fi
 
+if [ -n "$action_path" ]
+then
+	command_string="$command_string $action_path"
+fi
+
 echo "Command: $command_string"
 eval "$command_string"

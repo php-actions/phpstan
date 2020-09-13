@@ -6,6 +6,9 @@ inputs:
     description: The command to run (analyse [default], clear-result-cache, dump-deps, help, list, worker)
     required: true
     default: analyse
+  path:
+    description: Path(s) with source code to run analysis on
+    required: true
   configuration:
     description: Configuration file location
     required: false
@@ -36,6 +39,7 @@ runs:
   image: 'Dockerfile'
   env:
     action_command: ${{ inputs.command }}
+    action_path: ${{ inputs.path }}
     action_configuration: ${{ inputs.configuration }}
     action_level: ${{ inputs.level }}
     action_paths_file: ${{ inputs.paths_file }}
