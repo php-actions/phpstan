@@ -2,6 +2,10 @@ name: PHPStan (php-actions)
 description: PHP Static Analysis in Github Actions.
 
 inputs:
+  command:
+    description: The command to run (analyse [default], clear-result-cache, dump-deps, help, list, worker)
+    required: true
+    default: analyse
   configuration:
     description: Configuration file location
     required: false
@@ -31,6 +35,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   env:
+    action_command: ${{ inputs.command }}
     action_configuration: ${{ inputs.configuration }}
     action_level: ${{ inputs.level }}
     action_paths_file: ${{ inputs.paths_file }}
