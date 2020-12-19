@@ -43,7 +43,7 @@ fi
 
 if [ -n "$ACTION_ERROR_FORMAT" ]
 then
-	command_string+=(--error-format="ACTION_ERROR_FORMAT")
+	command_string+=(--error-format="$ACTION_ERROR_FORMAT")
 fi
 
 if [ -n "$ACTION_GENERATE_BASELINE" ]
