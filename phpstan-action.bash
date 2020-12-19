@@ -1,24 +1,69 @@
 #!/bin/bash
 set -e
+github_action_path=$(dirname "$0")
+docker_tag=$(cat ./docker_tag)
+echo "Docker tag: $docker_tag" >> output.log 2>&1
 
-Get_command()
-{
-	echo -n "phpstan --no-interaction --no-progress ${action_command}"
-	for env in action_configuration action_level \
-			   action_paths_file action_autoload_file action_error_format \
-			   action_generate_baseline action_memory_limit
-	do
-		option="${!env}"
-		option_name="${env#action_}"
-		if [ -z "${option}" ]; then
-			continue
-		fi
-		echo -n " --${option_name//_/-}='${option}'"
-	done
-	echo -n " ${action_args} ${action_path}"
-}
+# TODO: Download phar from Github
+phar_url="https://getrelease.download?repo=phpstan&version=$ACTION_VERSION"
+curl --silent -H "User-agent: cURL (https://github.com/php-actions)" -L "$phar_url" > "${github_action_path}/phpstan.phar"
+chmod +x "${github_action_path}/phpunit.phar"
 
-command_string="$(Get_command)"
+command_string=("phpstan")
 
-echo "Command: ${command_string}"
-eval "${command_string}"
+if [ -n "$ACTION_COMMAND" ]
+then
+	command_string+=("$ACTION_COMMAND")
+fi
+
+if [ -n "$ACTION_PATH" ]
+then
+	command_string+=("$ACTION_PATH")
+fi
+
+if [ -n "$ACTION_CONFIGURATION" ]
+then
+	command_string+=(--configuration="$ACTION_CONFIGURATION")
+fi
+
+if [ -n "$ACTION_LEVEL" ]
+then
+	command_string+=(--level="$ACTION_LEVEL")
+fi
+
+if [ -n "$ACTION_PATHS_FILE" ]
+then
+	command_string+=(--paths-file="$ACTION_PATHS_FILE")
+fi
+
+if [ -n "$ACTION_AUTOLOAD_FILE" ]
+then
+	command_string+=(--autoload-file="$ACTION_AUTOLOAD_FILE")
+fi
+
+if [ -n "$ACTION_ERROR_FORMAT" ]
+then
+	command_string+=(--error-format="ACTION_ERROR_FORMAT")
+fi
+
+if [ -n "$ACTION_GENERATE_BASELINE" ]
+then
+	command_string+=(--generate-baseline="$ACTION_GENERATE_BASELINE")
+fi
+
+if [ -n "$ACTION_MEMORY_LIMIT" ]
+then
+	command_string+=(--memory-limit="$ACTION_MEMORY_LIMIT")
+fi
+
+if [ -n "$ACTION_ARGS" ]
+then
+	command_string+=($ACTION_ARGS)
+fi
+
+echo "Command: " "${command_string[@]}" >> output.log 2>&1
+docker run --rm \
+	--volume "${github_action_path}/phpstan.phar":/usr/local/bin/phpstan \
+	--volume "${GITHUB_WORKSPACE}":/app \
+	--workdir /app \
+	${docker_tag} "${command_string[@]}"
