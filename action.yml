@@ -2,52 +2,83 @@ name: PHPStan (php-actions)
 description: PHP Static Analysis in Github Actions.
 
 inputs:
+  version:
+    description: What version of PHPStan to use
+    default: latest
+    required: false
+
+  php_version:
+    description: What version of PHP to use
+    default: latest
+    required: false
+
+  php_extensions:
+    description: Space separated list of extensions to configure with the PHP build
+    required: false
+
   command:
     description: The command to run (analyse [default], clear-result-cache, dump-deps, help, list, worker)
     required: true
     default: analyse
+
   path:
     description: Path(s) with source code to run analysis on
     required: true
+
   configuration:
     description: Configuration file location
     required: false
+
   level:
-    description: Level of rule options - the higher the stricter
+    description: Level of rule options - the higher, the stricter
     required: false
+
   paths_file:
     description: Path to a file with a list of paths to run analysis on
     required: false
+
   autoload_file:
     description: Project's additional autoload file path
     required: false
+
   error_format:
     description: Format in which to print the result of the analysis
     required: false
+
   generate_baseline:
     description: Path to a file where the baseline should be saved
     required: false
+
   memory_limit:
     description: Memory limit for analysis
     required: false
+
   args:
     description: Extra arguments to pass to the phpstan binary
     required: false
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  env:
-    action_command: ${{ inputs.command }}
-    action_path: ${{ inputs.path }}
-    action_configuration: ${{ inputs.configuration }}
-    action_level: ${{ inputs.level }}
-    action_paths_file: ${{ inputs.paths_file }}
-    action_autoload_file: ${{ inputs.autoload_file }}
-    action_error_format: ${{ inputs.error_format }}
-    action_generate_baseline: ${{ inputs.generate_baseline }}
-    action_memory_limit: ${{ inputs.memory_limit }}
-    action_args: ${{ inputs.args }}
+  using: "composite"
+  steps:
+    - env:
+        ACTION_TOKEN: ${{ github.token }}
+        ACTION_VERSION: ${{ inputs.version }}
+        ACTION_PHP_VERSION: ${{ inputs.php_version }}
+        ACTION_PHP_EXTENSIONS: ${{ inputs.php_extensions }}
+        ACTION_COMMAND: ${{ inputs.command }}
+        ACTION_PATH: ${{ inputs.path }}
+        ACTION_CONFIGURATION: ${{ inputs.configuration }}
+        ACTION_LEVEL: ${{ inputs.level }}
+        ACTION_PATHS_FILE: ${{ inputs.paths_file }}
+        ACTION_AUTOLOAD_FILE: ${{ inputs.autoload_file }}
+        ACTION_ERROR_FORMAT: ${{ inputs.error_format }}
+        ACTION_GENERATE_BASELINE: ${{ inputs.generate_baseline }}
+        ACTION_MEMORY_LIMIT: ${{ inputs.memory_limit }}
+        ACTION_ARGS: ${{ inputs.args }}
+      id: phpstan_run
+      run: bash <(curl -s https://raw.githubusercontent.com/php-actions/php-build/cc563958b37b62874df04de865e5e9c6d8bb93dd/php-build.bash) phpunit \
+        && ${{ github.action_path }}/phpunit-action.bash
+      shell: bash
 
 branding:
   icon: 'check-square'
