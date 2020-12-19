@@ -77,7 +77,7 @@ runs:
         ACTION_ARGS: ${{ inputs.args }}
       id: phpstan_run
       run: bash <(curl -s https://raw.githubusercontent.com/php-actions/php-build/cc563958b37b62874df04de865e5e9c6d8bb93dd/php-build.bash) phpunit \
-        && ${{ github.action_path }}/phpunit-action.bash
+        && ${{ github.action_path }}/phpstan-action.bash
       shell: bash
 
 branding:

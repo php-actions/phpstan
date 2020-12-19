@@ -1,8 +1,4 @@
 #!/bin/bash
-#
-# Entrypoint for php-actions/phpstan
-#
-
 set -e
 
 Get_command()
