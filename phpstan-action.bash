@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-pwd
 github_action_path=$(dirname "$0")
 docker_tag=$(cat ./docker_tag)
 echo "Docker tag: $docker_tag" >> output.log 2>&1
