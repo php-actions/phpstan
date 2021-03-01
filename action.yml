@@ -76,7 +76,7 @@ runs:
         ACTION_MEMORY_LIMIT: ${{ inputs.memory_limit }}
         ACTION_ARGS: ${{ inputs.args }}
       id: phpstan_run
-      run: bash <(curl -s https://raw.githubusercontent.com/php-actions/php-build/41a2ecd3a2d7c5f53407c6d7cc580d1a2d6c7526/php-build.bash) phpstan \
+      run: bash <(curl -s https://raw.githubusercontent.com/php-actions/php-build/330b13bbb1eadd05bbb627477c1549cd7e62e406/php-build.bash) phpstan \
         && ${{ github.action_path }}/phpstan-action.bash || { cat ${{ github.workspace }}/output.log ; exit 1; }
       shell: bash
 
