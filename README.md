@@ -26,6 +26,12 @@ jobs:
     # ... then your own project steps ...
 ```
 
+### Version numbers
+
+This action is released with semantic version numbers, but also tagged so the latest major release's tag always points to the latest release within the matching major version.
+
+Please feel free to use `uses: php-actions/phpstan@v3` to always run the latest version of v6, or `uses: php-actions/phpstan@v3.0.0` to specify the exact release.
+
 Example
 -------
 
