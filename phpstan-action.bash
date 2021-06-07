@@ -85,4 +85,5 @@ docker run --rm \
 	--volume "${GITHUB_WORKSPACE}":/app \
 	--workdir /app \
 	--env-file ./DOCKER_ENV \
+	--network host \
 	${docker_tag} "${command_string[@]}"
