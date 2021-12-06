@@ -21,8 +21,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: php-actions/composer@v5 # or alternative dependency management
-    - uses: php-actions/phpstan@v2
+    - uses: php-actions/composer@v6 # or alternative dependency management
+    - uses: php-actions/phpstan@v3
     # ... then your own project steps ...
 ```
 
