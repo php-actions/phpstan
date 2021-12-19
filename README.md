@@ -23,6 +23,9 @@ jobs:
     - uses: actions/checkout@v2
     - uses: php-actions/composer@v6 # or alternative dependency management
     - uses: php-actions/phpstan@v3
+      with:
+        path: src/
+
     # ... then your own project steps ...
 ```
 
