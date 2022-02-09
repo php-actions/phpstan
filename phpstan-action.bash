@@ -17,7 +17,7 @@ fi
 
 if [ -n "$ACTION_PATH" ]
 then
-	command_string+=("$ACTION_PATH")
+	command_string+=($ACTION_PATH)
 fi
 
 if [ -n "$ACTION_CONFIGURATION" ]
