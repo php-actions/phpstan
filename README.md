@@ -49,7 +49,7 @@ The following configuration options are available:
 + `php_version` The version of PHP to use e.g. `7.4` (default: latest)
 + `php_extensions` Space-separated list of extensions using [php-build][php-build] e.g. `xdebug mbstring` (default: N/A)
 + `command` The command to run e.g. `list` or `worker` (default: analyse)
-+ `path` Path(s) with source code to run analysis on (required)
++ `path` Path(s) with source code to run analysis on, space-separated (required)
 + `configuration` Configuration file location
 + `level` Level of rule options - the higher, the stricter
 + `paths_file` Path to a file with a list of paths to run analysis on

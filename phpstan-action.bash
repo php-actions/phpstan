@@ -17,7 +17,12 @@ fi
 
 if [ -n "$ACTION_PATH" ]
 then
-	command_string+=("$ACTION_PATH")
+	IFS=" "
+	read -r -a splitIFS <<< "$ACTION_PATH"
+	for path in "${splitIFS[@]}"
+	do
+		command_string+=("$path")
+	done
 fi
 
 if [ -n "$ACTION_CONFIGURATION" ]
