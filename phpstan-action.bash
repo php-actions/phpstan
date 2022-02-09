@@ -18,10 +18,9 @@ fi
 if [ -n "$ACTION_PATH" ]
 then
 	IFS=" "
-	read -rasplitIFS<<< "$ACTION_PATH"
+	read -r -a splitIFS<<< "$ACTION_PATH"
 	for path in "${splitIFS[@]]}"
 	do
-		echo "DEBUG: adding path - $path"
 		command_string+=("$path")
 	done
 fi
