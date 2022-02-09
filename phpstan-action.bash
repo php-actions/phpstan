@@ -18,7 +18,7 @@ fi
 if [ -n "$ACTION_PATH" ]
 then
 	IFS=" "
-	read -r -a splitIFS<<< "$ACTION_PATH"
+	read -r -a splitIFS <<< "$ACTION_PATH"
 	for path in "${splitIFS[@]]}"
 	do
 		command_string+=("$path")
