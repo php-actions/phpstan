@@ -21,6 +21,7 @@ then
 	read -rasplitIFS<<< "$ACTION_PATH"
 	for path in "${splitIFS[@]]}"
 	do
+		echo "DEBUG: adding path - $path"
 		command_string+=("$path")
 	done
 fi
