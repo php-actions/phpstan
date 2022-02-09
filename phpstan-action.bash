@@ -6,6 +6,7 @@ echo "Docker tag: $docker_tag" >> output.log 2>&1
 
 phar_url="https://www.getrelease.download/phpstan/phpstan/$ACTION_VERSION/phar"
 curl --silent -H "User-agent: cURL (https://github.com/php-actions)" -L "$phar_url" > "${github_action_path}/phpstan.phar"
+cat ${github_action_path}/phpstan.phar
 chmod +x "${github_action_path}/phpstan.phar"
 
 command_string=("phpstan")
