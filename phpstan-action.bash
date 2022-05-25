@@ -9,6 +9,7 @@ curl --silent -H "User-agent: cURL (https://github.com/php-actions)" -L "$phar_u
 chmod +x "${github_action_path}/phpstan.phar"
 
 command_string=("phpstan")
+command_string+=("--debug")
 
 if [ -n "$ACTION_COMMAND" ]
 then
