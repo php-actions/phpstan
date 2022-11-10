@@ -16,6 +16,10 @@ inputs:
     description: Space separated list of extensions to configure with the PHP build
     required: false
 
+  vendored_phpstan_path:
+    description: Path to a vendored phpstan binary
+    required: false
+
   command:
     description: The command to run (analyse [default], clear-result-cache, dump-deps, help, list, worker)
     required: true
@@ -64,6 +68,7 @@ runs:
         ACTION_TOKEN: ${{ github.token }}
         ACTION_VERSION: ${{ inputs.version }}
         ACTION_PHP_VERSION: ${{ inputs.php_version }}
+        ACTION_PHPSTAN_PATH: ${{ inputs.vendored_phpstan_path }}
         ACTION_PHP_EXTENSIONS: ${{ inputs.php_extensions }}
         ACTION_COMMAND: ${{ inputs.command }}
         ACTION_PATH: ${{ inputs.path }}

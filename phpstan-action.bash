@@ -4,10 +4,16 @@ github_action_path=$(dirname "$0")
 docker_tag=$(cat ./docker_tag)
 echo "Docker tag: $docker_tag" >> output.log 2>&1
 
-phar_url="https://www.getrelease.download/phpstan/phpstan/$ACTION_VERSION/phar"
-curl --silent -H "User-agent: cURL (https://github.com/php-actions)" -L "$phar_url" > "${github_action_path}/phpstan.phar"
-chmod +x "${github_action_path}/phpstan.phar"
+if [ -z "$ACTION_PHPSTAN_PATH" ]
+then
+	phar_url="https://www.getrelease.download/phpstan/phpstan/$ACTION_VERSION/phar"
+	phar_path="${github_action_path}/phpstan.phar"
+	curl --silent -H "User-agent: cURL (https://github.com/php-actions)" -L "$phar_url" > "$phar_path"
+else
+	phar_path="${GITHUB_WORKSPACE}/$ACTION_PHPSTAN_PATH"
+fi
 
+chmod +x "$phar_path"
 command_string=("phpstan")
 
 if [ -n "$ACTION_COMMAND" ]
@@ -83,10 +89,9 @@ do
 done <<<$(env)
 
 echo "Command: " "${command_string[@]}" >> output.log 2>&1
-echo "::set-output name=full_command::${command_string}"
 
 docker run --rm \
-	--volume "${github_action_path}/phpstan.phar":/usr/local/bin/phpstan \
+	--volume "$phar_path":/usr/local/bin/phpstan \
 	--volume "${GITHUB_WORKSPACE}":/app \
 	--workdir /app \
 	--env-file ./DOCKER_ENV \

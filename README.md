@@ -48,6 +48,7 @@ The following configuration options are available:
 + `version` The version of PHPStan to use e.g. `9` or `9.5.0` (default: latest)
 + `php_version` The version of PHP to use e.g. `7.4` (default: latest)
 + `php_extensions` Space-separated list of extensions using [php-build][php-build] e.g. `xdebug mbstring` (default: N/A)
++ `vendored_phpstan_path` The path to a phar file already present on the runner (default: N/A)
 + `command` The command to run e.g. `list` or `worker` (default: analyse)
 + `path` Path(s) with source code to run analysis on, space-separated (required)
 + `configuration` Configuration file location
