@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: php-actions/composer@v6 # or alternative dependency management
     - uses: php-actions/phpstan@v3
       with:
@@ -71,7 +71,7 @@ jobs:
     ...
 
     - name: PHPStan
-      uses: php-actions/phpstan@v2
+      uses: php-actions/phpstan@v3
       with:
         command: your-command-here
 ```
@@ -87,7 +87,7 @@ jobs:
     ...
 
     - name: PHPStan Static Analysis
-      uses: php-actions/phpstan@v2
+      uses: php-actions/phpstan@v3
       with:
         configuration: custom/path/to/phpstan.neon
         memory_limit: 256M
