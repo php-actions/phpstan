@@ -66,6 +66,8 @@ then
 	command_string+=(--memory-limit="$ACTION_MEMORY_LIMIT")
 fi
 
+command_string+=(--ansi)
+
 if [ -n "$ACTION_ARGS" ]
 then
 	command_string+=($ACTION_ARGS)
