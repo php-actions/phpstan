@@ -83,7 +83,7 @@ runs:
       id: phpstan_run
       run: |
         set -e
-        bash <(curl -s https://raw.githubusercontent.com/php-actions/php-build/cee5b9fa9fbc4c888e7a62bbb7b8eade18e3c56b/php-build.bash) phpstan
+        bash <(curl -s https://raw.githubusercontent.com/php-actions/php-build/59e915e4b8eeab830231a5dce6ad0998adebac05/php-build.bash) phpstan
         ${{ github.action_path }}/phpstan-action.bash
       shell: bash
 
