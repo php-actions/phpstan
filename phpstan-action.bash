@@ -6,7 +6,7 @@ echo "Docker tag: $docker_tag" >> output.log 2>&1
 
 if [ "$ACTION_VERSION" = "composer" ]
 then
-	VENDOR_BIN="vendor/bin/phpstan"
+	VENDOR_BIN="vendor/bin/phpstan.phar"
 	if test -f "$VENDOR_BIN"
 	then
 		ACTION_PHPSTAN_PATH="$VENDOR_BIN"
