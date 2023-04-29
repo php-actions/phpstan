@@ -6,7 +6,7 @@ echo "Docker tag: $docker_tag" >> output.log 2>&1
 
 if [ "$ACTION_VERSION" = "composer" ]
 then
-	ACTION_PHPSTAN_PATH="${GITHUB_WORKSPACE}/vendor/bin/phpstan"
+	ACTION_PHPSTAN_PATH="vendor/bin/phpstan"
 fi
 
 if [ -z "$ACTION_PHPSTAN_PATH" ]
