@@ -45,7 +45,7 @@ Inputs
 
 The following configuration options are available:
 
-+ `version` The version of PHPStan to use e.g. `9` or `9.5.0` (default: latest)
++ `version` The version of PHPStan to use e.g. `9`, `9.5.0`, `latest` or `composer` (default: `composer` will use the version in your `vendor/bin` directory)
 + `php_version` The version of PHP to use e.g. `7.4` (default: latest)
 + `php_extensions` Space-separated list of extensions using [php-build][php-build] e.g. `xdebug mbstring` (default: N/A)
 + `vendored_phpstan_path` The path to a phar file already present on the runner (default: N/A)

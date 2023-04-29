@@ -4,6 +4,11 @@ github_action_path=$(dirname "$0")
 docker_tag=$(cat ./docker_tag)
 echo "Docker tag: $docker_tag" >> output.log 2>&1
 
+if [ "$ACTION_VERSION" = "composer" ]
+then
+	ACTION_PHPSTAN_PATH="${GITHUB_WORKSPACE}/vendor/bin/phpstan"
+fi
+
 if [ -z "$ACTION_PHPSTAN_PATH" ]
 then
 	phar_url="https://www.getrelease.download/phpstan/phpstan/$ACTION_VERSION/phar"
