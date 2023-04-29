@@ -6,7 +6,14 @@ echo "Docker tag: $docker_tag" >> output.log 2>&1
 
 if [ "$ACTION_VERSION" = "composer" ]
 then
-	ACTION_PHPSTAN_PATH="vendor/bin/phpstan"
+	VENDOR_BIN="vendor/bin/phpstan"
+	if test -f "$VENDOR_BIN"
+	then
+		ACTION_PHPSTAN_PATH="$VENDOR_BIN"
+	else
+		echo "Trying to use version installed by Composer, but there is no file at $ACTION_PHPSTAN_PATH"
+		exit 1
+	fi
 fi
 
 if [ -z "$ACTION_PHPSTAN_PATH" ]
