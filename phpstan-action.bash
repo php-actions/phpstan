@@ -10,6 +10,7 @@ then
 	if test -f "$VENDOR_BIN"
 	then
 		ACTION_PHPSTAN_PATH="$VENDOR_BIN"
+		echo "Using PHPStan installed at $ACTION_PHPSTAN_PATH"
 	else
 		echo "Trying to use version installed by Composer, but there is no file at $ACTION_PHPSTAN_PATH"
 		exit 1
