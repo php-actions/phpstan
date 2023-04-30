@@ -6,7 +6,7 @@ echo "Docker tag: $docker_tag" >> output.log 2>&1
 
 if [ "$ACTION_VERSION" = "composer" ]
 then
-	VENDOR_BIN="vendor/bin/phpstan.phar"
+	VENDOR_BIN="vendor/bin/phpstan"
 	if test -f "$VENDOR_BIN"
 	then
 		ACTION_PHPSTAN_PATH="$VENDOR_BIN"
@@ -23,7 +23,6 @@ then
 	curl --silent -H "User-agent: cURL (https://github.com/php-actions)" -L "$phar_url" > "$phar_path"
 else
 	phar_path="${GITHUB_WORKSPACE}/$ACTION_PHPSTAN_PATH"
-	echo "PHAR path: $phar_path"
 fi
 
 chmod +x "$phar_path"
@@ -107,6 +106,7 @@ echo "Command: " "${command_string[@]}" >> output.log 2>&1
 
 docker run --rm \
 	--volume "$phar_path":/usr/local/bin/phpstan \
+	--volume "${GITHUB_WORKSPACE}/vendor/phpstan:/usr/local/phpstan" \
 	--volume "${GITHUB_WORKSPACE}":/app \
 	--workdir /app \
 	--env-file ./DOCKER_ENV \
