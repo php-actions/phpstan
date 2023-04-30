@@ -10,7 +10,6 @@ then
 	if test -f "$VENDOR_BIN"
 	then
 		ACTION_PHPSTAN_PATH="$VENDOR_BIN"
-		echo "Using PHPStan installed at $ACTION_PHPSTAN_PATH"
 	else
 		echo "Trying to use version installed by Composer, but there is no file at $ACTION_PHPSTAN_PATH"
 		exit 1
@@ -24,6 +23,7 @@ then
 	curl --silent -H "User-agent: cURL (https://github.com/php-actions)" -L "$phar_url" > "$phar_path"
 else
 	phar_path="${GITHUB_WORKSPACE}/$ACTION_PHPSTAN_PATH"
+	echo "PHAR path: $phar_path"
 fi
 
 chmod +x "$phar_path"
