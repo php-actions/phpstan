@@ -4,6 +4,18 @@ github_action_path=$(dirname "$0")
 docker_tag=$(cat ./docker_tag)
 echo "Docker tag: $docker_tag" >> output.log 2>&1
 
+if [ "$ACTION_VERSION" = "composer" ]
+then
+	VENDOR_BIN="vendor/bin/phpstan"
+	if test -f "$VENDOR_BIN"
+	then
+		ACTION_PHPSTAN_PATH="$VENDOR_BIN"
+	else
+		echo "Trying to use version installed by Composer, but there is no file at $ACTION_PHPSTAN_PATH"
+		exit 1
+	fi
+fi
+
 if [ -z "$ACTION_PHPSTAN_PATH" ]
 then
 	phar_url="https://www.getrelease.download/phpstan/phpstan/$ACTION_VERSION/phar"
@@ -94,6 +106,7 @@ echo "Command: " "${command_string[@]}" >> output.log 2>&1
 
 docker run --rm \
 	--volume "$phar_path":/usr/local/bin/phpstan \
+	--volume "${GITHUB_WORKSPACE}/vendor/phpstan:/usr/local/phpstan" \
 	--volume "${GITHUB_WORKSPACE}":/app \
 	--workdir /app \
 	--env-file ./DOCKER_ENV \

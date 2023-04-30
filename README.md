@@ -45,7 +45,7 @@ Inputs
 
 The following configuration options are available:
 
-+ `version` The version of PHPStan to use e.g. `9` or `9.5.0` (default: latest)
++ `version` The version of PHPStan to use e.g. `9`, `9.5.0`, `latest` or `composer` (default: `composer` will use the version in your `vendor/bin` directory)
 + `php_version` The version of PHP to use e.g. `7.4` (default: latest)
 + `php_extensions` Space-separated list of extensions using [php-build][php-build] e.g. `xdebug mbstring` (default: N/A)
 + `vendored_phpstan_path` The path to a phar file already present on the runner (default: N/A)
@@ -100,12 +100,11 @@ PHP and PHPStan versions
 
 It's possible to run any version of PHPStan under any version of PHP, with any PHP extensions you require. This is configured with the following inputs:
 
-+ `version` - the version number of PHPStan to run e.g. `0.12.63` (default: latest)
-+ `php_version` - the version number of PHP to use e.g. `7.4` (default: latest)
++ `version` - the version number of PHPStan to run e.g. `1.10.14` (default: `composer`)
++ `php_version` - the version number of PHP to use e.g. `8.1` (default: `latest`)
 + `php_extensions` - a space-separated list of extensions to install using [php-build][php-build] e.g. `xdebug mbstring` (default: N/A)
 
 If you require a specific version combination that is not compatible with Github Actions for some reason, please make a request in the [Github issue tracker][issues].
-
 
 ***
 
