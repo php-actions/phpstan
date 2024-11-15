@@ -27,7 +27,7 @@ inputs:
 
   path:
     description: Path(s) with source code to run analysis on
-    required: true
+    required: false
 
   configuration:
     description: Configuration file location
