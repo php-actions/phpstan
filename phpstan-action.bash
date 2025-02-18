@@ -6,13 +6,27 @@ echo "Docker tag: $docker_tag" >> output.log 2>&1
 
 if [ "$ACTION_VERSION" = "composer" ]
 then
-	VENDOR_BIN="vendor/bin/phpstan"
-	if test -f "$VENDOR_BIN"
+	# Check for a custom path set to the phpstan binary - $ACTION_PHPSTAN_PATH (inputs.vendored_phpstan_path)
+	if [ -z "$ACTION_PHPSTAN_PATH" ]
 	then
-		ACTION_PHPSTAN_PATH="$VENDOR_BIN"
-	else
-		echo "Trying to use version installed by Composer, but there is no file at $ACTION_PHPSTAN_PATH"
-		exit 1
+		ACTION_PHPSTAN_PATH="vendor/bin/phpstan"
+	fi
+
+	# Now check for if the binary exists in the expected location
+	if ! test -f "$ACTION_PHPSTAN_PATH"
+	then
+		echo "No file found at $ACTION_PHPSTAN_PATH, looking in composer bin-dir"
+		composer_bin_dir=$(composer config bin-dir 2>/dev/null || '')
+		phpstan_bin="$composer_bin_dir/phpstan"
+
+		# Test our fallback Composer path
+		if test -f "$phpstan_bin"
+		then
+			ACTION_PHPSTAN_PATH="$phpstan_bin"
+		else
+			echo "Trying to use version installed by Composer, but there is no file at $phpstan_bin"
+			exit 1
+		fi
 	fi
 fi
 
