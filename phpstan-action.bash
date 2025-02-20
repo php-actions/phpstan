@@ -3,18 +3,7 @@ set -e
 github_action_path=$(dirname "$0")
 docker_tag=$(cat ./docker_tag)
 echo "Docker tag: $docker_tag" >> output.log 2>&1
-
-if [ "$ACTION_VERSION" = "composer" ]
-then
-	VENDOR_BIN="vendor/bin/phpstan"
-	if test -f "$VENDOR_BIN"
-	then
-		ACTION_PHPSTAN_PATH="$VENDOR_BIN"
-	else
-		echo "Trying to use version installed by Composer, but there is no file at $ACTION_PHPSTAN_PATH"
-		exit 1
-	fi
-fi
+command_string=("phpstan")
 
 if [ -z "$ACTION_PHPSTAN_PATH" ]
 then
@@ -23,14 +12,13 @@ then
 	curl --silent -H "User-agent: cURL (https://github.com/php-actions)" -L "$phar_url" > "$phar_path"
 else
 	phar_path="${GITHUB_WORKSPACE}/$ACTION_PHPSTAN_PATH"
+	command_string=("$ACTION_PHPSTAN_PATH")
 fi
 
 if [ ! -x "$phar_path" ];
 then
 	chmod +x "$phar_path"
 fi
-
-command_string=("phpstan")
 
 if [ -n "$ACTION_COMMAND" ]
 then
