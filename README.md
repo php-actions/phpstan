@@ -3,7 +3,7 @@
  PHP Static Analysis in Github Actions. 
  ======================================
 
-PHPStan finds bugs in your code without writing tests by using runnin static analysis on your project's code.
+PHPStan finds bugs in your code without writing tests by using running static analysis on your project's code.
 
 Usage
 -----
